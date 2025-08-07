@@ -20,7 +20,7 @@
     "realm": "file:..",
     "spawn-sync": "^2.0.0",
     "terminate": "^1.0.8",
-    "tmp": "^0.0.30",
+    "tmp": "^0.2.4",
     "url-parse": "^1.5.2"
   },
   "scripts": {
