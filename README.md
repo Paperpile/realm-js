@@ -1,3 +1,32 @@
+# Realm Paperpile fork
+
+This is a fork of [realm-js](https://github.com/realm/realm-js) needed for the `desktop` project.
+
+- It removes the `submit-analytics.js` postinstall script, which gets stuck on Node v22.
+- It removes all GitHub workflows, as we only consume this repository as a package.
+- It has a script to build a tarball of the package.
+
+## Build tgz
+- To build the `.tgz` package, use `./buildPackage.sh`. This creates a tarball we can then reference in our `desktop` project.
+- Run it on macOS or Linux. Packing on Windows would drop the executable bit again (see below).
+
+### How to reference this fork
+
+```jsonc
+// ❌ fails on Windows: yarn clones it and because permissions on Windows are different (no executable bit),
+// it computes a different checksum than yarn.lock has and the install fails
+"realm": "https://github.com/Paperpile/realm-js.git"
+
+// ❌ fails everywhere: a repository tarball ignores the "files" list, so it also unpacks
+// `compile_commands.json`, a symlink to a gitignored build artifact that does not exist
+"realm": "https://codeload.github.com/Paperpile/realm-js/tar.gz/ada1f81"
+
+// ✅ the tarball built by ./buildPackage.sh - only the published files, identical bytes everywhere
+"realm": "https://raw.githubusercontent.com/Paperpile/realm-js/refs/tags/desktop-v10.13.0/tgz/realm-10.13.0.tgz"
+```
+
+---
+
 [![realm by MongoDB](./logo.svg#gh-light-mode-only)](https://realm.io#gh-light-mode-only)
 [![realm by MongoDB](./logo-dark.svg#gh-dark-mode-only)](https://realm.io#gh-dark-mode-only)
 
